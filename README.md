@@ -10,7 +10,7 @@ A new Flutter package project.
 ```
 OR
 ```
- // Null safety Support
+ # wee_kit v2 Null safety Support
   wee_kit:
     git:
       url: git://github.com/hengkysteen/wee_kit

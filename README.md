@@ -6,7 +6,15 @@ A new Flutter package project.
   wee_kit:
     git:
       url: git://github.com/hengkysteen/wee_kit
-      ref: v0.0.1
+      ref: v1.0.0
+```
+OR
+```
+ // Null safety Support
+  wee_kit:
+    git:
+      url: git://github.com/hengkysteen/wee_kit
+      ref: v2.0.0
 ```
  
 

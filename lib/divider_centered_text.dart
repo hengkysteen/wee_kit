@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class WeeDividerCenteredText extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
   final double indent;
   final double endIndent;
   final Color color;
   const WeeDividerCenteredText({
-    Key key,
+    Key? key,
     this.child,
     this.indent = 20,
     this.endIndent = 20,

@@ -6,22 +6,22 @@ import 'package:flutter/material.dart';
 class WeeLoadMore extends StatefulWidget {
   final bool showLog;
   final int length;
-  final AsyncCallback onLoadMore;
+  final AsyncCallback? onLoadMore;
   final IndexedWidgetBuilder builder;
-  final RefreshCallback onRefresh;
+  final RefreshCallback? onRefresh;
   final bool showRefresh;
-  final bool primary;
-  final ScrollPhysics physics;
+  final bool? primary;
+  final ScrollPhysics? physics;
   final bool shrinkWrap;
-  final EdgeInsetsGeometry padding;
-  final Widget loadMore;
-  final Visibility loadEnd;
+  final EdgeInsetsGeometry? padding;
+  final Widget? loadMore;
+  final Visibility? loadEnd;
 
   const WeeLoadMore({
-    Key key,
+    Key? key,
     this.showLog = false,
-    @required this.length,
-    @required this.builder,
+    required this.length,
+    required this.builder,
     this.onLoadMore,
     this.onRefresh,
     this.showRefresh = false,
@@ -43,7 +43,7 @@ class _WeeLoadMoreState extends State<WeeLoadMore> {
 
   Widget _widgetRefresh(Widget child) {
     return RefreshIndicator(
-      onRefresh: widget.onRefresh,
+      onRefresh: widget.onRefresh!,
       child: child,
     );
   }
@@ -72,7 +72,7 @@ class _WeeLoadMoreState extends State<WeeLoadMore> {
             }
 
             return;
-          },
+          } as bool Function(ScrollNotification)?,
           child: ListView.builder(
             padding: EdgeInsets.only(bottom: 50),
             primary: widget.primary,
@@ -128,7 +128,7 @@ class _WeeLoadMoreState extends State<WeeLoadMore> {
     }
     if (widget.onLoadMore != null) {
       setState(() => _isLoadMore = true);
-      await widget.onLoadMore();
+      await widget.onLoadMore!();
       setState(() => _isLoadMore = false);
     }
   }

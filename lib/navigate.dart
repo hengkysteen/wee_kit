@@ -9,15 +9,15 @@ class WeeNavigate {
     BuildContext context,
     Widget destination, {
     WeeNavigateStyle style = WeeNavigateStyle.auto,
-    String name,
+    String? name,
     bool maintainState = true,
     bool full = false,
     bool removeUntil = false,
     bool replace = false,
-    RouteSettings settings,
-    Object arguments,
+    RouteSettings? settings,
+    Object? arguments,
   }) {
-    Route route;
+    late Route route;
     if (style == WeeNavigateStyle.auto) {
       if (Platform.isIOS) {
         route = CupertinoPageRoute(
@@ -67,7 +67,7 @@ class WeeNavigate {
     }
   }
 
-  static void back<T extends Object>(BuildContext context, [T result]) {
+  static void back<T extends Object>(BuildContext context, [T? result]) {
     return Navigator.pop(context, result);
   }
 }

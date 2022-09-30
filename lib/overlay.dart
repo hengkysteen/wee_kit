@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class WeeOverlays {
-  static Future<T> show<T>(
+  static Future<T?> show<T>(
     BuildContext context, {
     bool disablePop = true,
-    Color barrierColor,
-    Widget child,
+    Color? barrierColor,
+    Widget? child,
     Color loadingColor = Colors.white,
   }) async {
     return showDialog(

@@ -1,8 +1,7 @@
 name: wee_kit
 description: A new Flutter package project.
 version: 2.0.0
-
-homepage:
+repository: https://github.com/hengkysteen/wee_kit
 
 environment:
   sdk: '>=2.12.0 <3.0.0'

@@ -56,14 +56,16 @@ class _WeeLoadMoreState extends State<WeeLoadMore> {
               // Scroll Start
             } else if (scrollNotification is ScrollUpdateNotification) {
               // Scroll update
-              if (scrollNotification.metrics.pixels >= scrollNotification.metrics.maxScrollExtent) {
+              if (scrollNotification.metrics.pixels >=
+                  scrollNotification.metrics.maxScrollExtent) {
                 setState(() => _isBottom = true);
               } else {
                 setState(() => _isBottom = false);
               }
             } else if (scrollNotification is ScrollEndNotification) {
               // Scroll end
-              if (scrollNotification.metrics.pixels >= scrollNotification.metrics.maxScrollExtent) {
+              if (scrollNotification.metrics.pixels >=
+                  scrollNotification.metrics.maxScrollExtent) {
                 if (!_isLoadMore && _isBottom) {
                   _loadMore();
                 }

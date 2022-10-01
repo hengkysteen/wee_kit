@@ -59,7 +59,8 @@ class WeeNavigate {
     }
 
     if (removeUntil) {
-      return Navigator.pushAndRemoveUntil(context, route, (Route<dynamic> r) => false);
+      return Navigator.pushAndRemoveUntil(
+          context, route, (Route<dynamic> r) => false);
     } else if (replace) {
       return Navigator.pushReplacement(context, route);
     } else {

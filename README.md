@@ -6,7 +6,7 @@ A kit, simple & reusable UI components to save development time.
 ## Getting Started
 add to dependencies:
 ```yaml
-wee_kit: ^2.0.0
+wee_kit: ^2.0.2
 ```
 ### TODO :
   - Documentation

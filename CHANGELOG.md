@@ -6,3 +6,5 @@
 * Migrate to null safety
 ## [2.0.1] 
 * package scores
+## [2.0.2] 
+* MIT License

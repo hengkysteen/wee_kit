@@ -8,10 +8,10 @@ add to dependencies:
 ```yaml
 wee_kit: ^2.0.0
 ```
-  ### TODO :
-    - Documentation
-    - Example
-    - Test
+### TODO :
+  - Documentation
+  - Example
+  - Test
  
 For flutter 1 project<br/>
 add to dependencies:

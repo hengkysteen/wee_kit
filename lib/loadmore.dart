@@ -49,7 +49,6 @@ class _WeeLoadMoreListState extends State<WeeLoadMoreList> {
 
   bool Function(ScrollNotification)? get _onNotification {
     return (scrollNotification) {
-      print(scrollNotification);
       if (scrollNotification is ScrollStartNotification) {
         // ScrollStartNotification
       } else if (scrollNotification is ScrollUpdateNotification) {

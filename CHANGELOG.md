@@ -8,3 +8,4 @@
 * package scores
 ## [2.0.2] 
 * MIT License
+* Example

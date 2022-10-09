@@ -13,7 +13,7 @@ wee_kit: ^2.0.2
   - Example
   - Test
  
-For flutter 1 project<br/>
+For flutter 1 project\
 add to dependencies:
 ```yaml
   wee_kit:

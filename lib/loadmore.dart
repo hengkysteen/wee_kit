@@ -1,24 +1,28 @@
-import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class WeeLoadMore extends StatefulWidget {
-  final bool showLog;
+class WeeLoadMoreList extends StatefulWidget {
+
   final int length;
-  final AsyncCallback? onLoadMore;
   final IndexedWidgetBuilder builder;
+
+  /// [onRefresh] require [showRefresh] to true
   final RefreshCallback? onRefresh;
+  
   final bool showRefresh;
   final bool? primary;
   final ScrollPhysics? physics;
   final bool shrinkWrap;
   final EdgeInsetsGeometry? padding;
-  final Widget? loadMore;
-  final Visibility? loadEnd;
+  final AsyncCallback? onLoadMore;
+  final Widget? loadMoreWidget;
+  final Widget? loadMoreEndWidget;
+  final bool isLoadMoreEnd;
 
-  const WeeLoadMore({
+  /// A ListView widget with Loadmore & refresh feature
+
+  const WeeLoadMoreList({
     Key? key,
-    this.showLog = false,
     required this.length,
     required this.builder,
     this.onLoadMore,
@@ -28,58 +32,62 @@ class WeeLoadMore extends StatefulWidget {
     this.physics,
     this.padding,
     this.shrinkWrap = false,
-    this.loadMore,
-    this.loadEnd,
-  }) : super(key: key);
+    this.loadMoreWidget,
+    this.loadMoreEndWidget,
+    this.isLoadMoreEnd = false,
+  })  : assert(showRefresh == true ? onRefresh != null : onRefresh == null),
+        super(key: key);
 
   @override
-  _WeeLoadMoreState createState() => _WeeLoadMoreState();
+  _WeeLoadMoreListState createState() => _WeeLoadMoreListState();
 }
 
-class _WeeLoadMoreState extends State<WeeLoadMore> {
+class _WeeLoadMoreListState extends State<WeeLoadMoreList> {
   bool _isLoadMore = false;
   bool _isBottom = false;
 
-  Widget _widgetRefresh(Widget child) {
-    return RefreshIndicator(
-      onRefresh: widget.onRefresh!,
-      child: child,
-    );
+  @override
+  Widget build(BuildContext context) {
+    return _buildBody();
   }
 
-  Widget _widgetList() {
+  bool Function(ScrollNotification)? get _onNotification {
+    return (scrollNotification) {
+      print(scrollNotification);
+      if (scrollNotification is ScrollStartNotification) {
+        // ScrollStartNotification
+      } else if (scrollNotification is ScrollUpdateNotification) {
+        //ScrollUpdateNotification
+        if (scrollNotification.metrics.pixels >= scrollNotification.metrics.maxScrollExtent) {
+          setState(() => _isBottom = true);
+        } else {
+          setState(() => _isBottom = false);
+        }
+      } else if (scrollNotification is ScrollEndNotification) {
+        //ScrollEndNotification
+        if (scrollNotification.metrics.pixels >= scrollNotification.metrics.maxScrollExtent) {
+          if (!_isLoadMore && _isBottom) {
+            _loadMore();
+          }
+        }
+      }
+      return true;
+    };
+  }
+
+  Widget _widgetBody(Widget child) {
     return Stack(
       children: [
-        NotificationListener<ScrollNotification>(
-          onNotification: (scrollNotification) {
-            if (scrollNotification is ScrollStartNotification) {
-              // Scroll Start
-            } else if (scrollNotification is ScrollUpdateNotification) {
-              // Scroll update
-              if (scrollNotification.metrics.pixels >=
-                  scrollNotification.metrics.maxScrollExtent) {
-                setState(() => _isBottom = true);
-              } else {
-                setState(() => _isBottom = false);
-              }
-            } else if (scrollNotification is ScrollEndNotification) {
-              // Scroll end
-              if (scrollNotification.metrics.pixels >=
-                  scrollNotification.metrics.maxScrollExtent) {
-                if (!_isLoadMore && _isBottom) {
-                  _loadMore();
-                }
-              }
-            }
-
-            return;
-          } as bool Function(ScrollNotification)?,
-          child: ListView.builder(
-            padding: EdgeInsets.only(bottom: 50),
-            primary: widget.primary,
-            physics: widget.physics,
-            itemCount: widget.length,
-            itemBuilder: widget.builder,
+        Visibility(
+          visible: widget.isLoadMoreEnd && !_isLoadMore && _isBottom,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              padding: EdgeInsets.only(bottom: 10),
+              height: 70,
+              width: double.infinity,
+              child: Center(child: widget.loadMoreEndWidget ?? Text("-- No More --", style: TextStyle(color: Colors.grey))),
+            ),
           ),
         ),
         Visibility(
@@ -88,54 +96,50 @@ class _WeeLoadMoreState extends State<WeeLoadMore> {
             alignment: Alignment.bottomCenter,
             child: Container(
               padding: EdgeInsets.only(bottom: 10),
-              height: _isLoadMore && _isBottom ? 50 : 0,
+              height: _isLoadMore && _isBottom ? 70 : 0,
               width: double.infinity,
-              child: Center(
-                child: widget.loadMore ??
-                    Text(
-                      "Load More ...",
-                      style: TextStyle(color: Colors.grey),
-                    ),
-              ),
+              child: Center(child: widget.loadMoreWidget ?? Text("Load More ...", style: TextStyle(color: Colors.grey))),
             ),
           ),
         ),
-        Visibility(
-          visible: _isBottom,
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              padding: EdgeInsets.only(bottom: 10),
-              height: 50,
-              width: double.infinity,
-              child: Center(child: widget.loadEnd),
-            ),
-          ),
-        )
+        NotificationListener<ScrollNotification>(onNotification: _onNotification, child: child),
       ],
     );
   }
 
-  Widget _buildBody() {
-    if (widget.showRefresh) {
-      return _widgetRefresh(_widgetList());
-    }
-    return _widgetList();
+  Widget _list() {
+    return ListView.builder(
+      padding: EdgeInsets.only(bottom: 70),
+      primary: widget.primary,
+      physics: widget.physics,
+      itemCount: widget.length,
+      itemBuilder: widget.builder,
+    );
   }
 
-  Future _loadMore() async {
-    if (widget.showLog) {
-      log("onLoadMore", name: "wee_kit");
+  // Widget _widgetRefresh(Widget child) {
+  //   return RefreshIndicator(
+  //     onRefresh: widget.onRefresh!,
+  //     child: child,
+  //   );
+  // }
+
+  Widget _buildBody() {
+    if (widget.showRefresh) {
+      return _widgetBody(RefreshIndicator(
+        onRefresh: widget.onRefresh!,
+        child: _list(),
+      ));
     }
+    return _widgetBody(_list());
+  }
+
+  Future<void> _loadMore() async {
     if (widget.onLoadMore != null) {
       setState(() => _isLoadMore = true);
       await widget.onLoadMore!();
+      if (!mounted) return;
       setState(() => _isLoadMore = false);
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _buildBody();
   }
 }

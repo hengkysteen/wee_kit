@@ -2,13 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class WeeLoadMoreList extends StatefulWidget {
-
   final int length;
   final IndexedWidgetBuilder builder;
-
   /// [onRefresh] require [showRefresh] to true
   final RefreshCallback? onRefresh;
-  
   final bool showRefresh;
   final bool? primary;
   final ScrollPhysics? physics;
@@ -20,7 +17,6 @@ class WeeLoadMoreList extends StatefulWidget {
   final bool isLoadMoreEnd;
 
   /// A ListView widget with Loadmore & refresh feature
-
   const WeeLoadMoreList({
     Key? key,
     required this.length,
@@ -107,7 +103,7 @@ class _WeeLoadMoreListState extends State<WeeLoadMoreList> {
     );
   }
 
-  Widget _list() {
+  Widget _widgetListView() {
     return ListView.builder(
       padding: EdgeInsets.only(bottom: 70),
       primary: widget.primary,
@@ -117,21 +113,14 @@ class _WeeLoadMoreListState extends State<WeeLoadMoreList> {
     );
   }
 
-  // Widget _widgetRefresh(Widget child) {
-  //   return RefreshIndicator(
-  //     onRefresh: widget.onRefresh!,
-  //     child: child,
-  //   );
-  // }
-
   Widget _buildBody() {
     if (widget.showRefresh) {
       return _widgetBody(RefreshIndicator(
         onRefresh: widget.onRefresh!,
-        child: _list(),
+        child: _widgetListView(),
       ));
     }
-    return _widgetBody(_list());
+    return _widgetBody(_widgetListView());
   }
 
   Future<void> _loadMore() async {

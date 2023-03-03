@@ -1,5 +1,6 @@
 import 'dart:io' show Platform;
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 enum WeeNavigateStyle { auto, material, cupertino }
@@ -9,29 +10,40 @@ class WeeNavigate {
     BuildContext context,
     Widget destination, {
     WeeNavigateStyle style = WeeNavigateStyle.auto,
-    String? name,
     bool maintainState = true,
-    bool full = false,
+    bool fullscreenDialog = false,
     bool removeUntil = false,
     bool replace = false,
     RouteSettings? settings,
-    Object? arguments,
   }) {
     late Route route;
+
     if (style == WeeNavigateStyle.auto) {
-      if (Platform.isIOS) {
+      if (kIsWeb) {
+        route = PageRouteBuilder(
+          transitionDuration: Duration(milliseconds: 200),
+          reverseTransitionDuration: Duration(milliseconds: 200),
+          settings: settings,
+          pageBuilder: (context, _, __) {
+            return destination;
+          },
+          transitionsBuilder: (BuildContext context, Animation<double> animation, _, Widget child) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+        );
+      } else if (Platform.isIOS) {
         route = CupertinoPageRoute(
           builder: (_) => destination,
           maintainState: maintainState,
-          settings: settings ?? RouteSettings(name: name, arguments: arguments),
-          fullscreenDialog: full,
+          settings: settings,
+          fullscreenDialog: fullscreenDialog,
         );
       } else {
         route = MaterialPageRoute(
           builder: (_) => destination,
           maintainState: maintainState,
-          settings: settings ?? RouteSettings(name: name, arguments: arguments),
-          fullscreenDialog: full,
+          settings: settings,
+          fullscreenDialog: fullscreenDialog,
         );
       }
     }
@@ -40,8 +52,8 @@ class WeeNavigate {
       route = MaterialPageRoute(
         builder: (_) => destination,
         maintainState: maintainState,
-        settings: settings ?? RouteSettings(name: name, arguments: arguments),
-        fullscreenDialog: full,
+        settings: settings,
+        fullscreenDialog: fullscreenDialog,
       );
     }
 
@@ -49,8 +61,8 @@ class WeeNavigate {
       route = CupertinoPageRoute(
         builder: (_) => destination,
         maintainState: maintainState,
-        settings: settings ?? RouteSettings(name: name, arguments: arguments),
-        fullscreenDialog: full,
+        settings: settings,
+        fullscreenDialog: fullscreenDialog,
       );
     }
 
@@ -59,8 +71,7 @@ class WeeNavigate {
     }
 
     if (removeUntil) {
-      return Navigator.pushAndRemoveUntil(
-          context, route, (Route<dynamic> r) => false);
+      return Navigator.pushAndRemoveUntil(context, route, (Route<dynamic> r) => false);
     } else if (replace) {
       return Navigator.pushReplacement(context, route);
     } else {

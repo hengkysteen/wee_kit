@@ -4,6 +4,19 @@ import 'package:wee_kit/wee_kit.dart' show WeeColor;
 class ColorPage extends StatelessWidget {
   const ColorPage({Key? key}) : super(key: key);
 
+  Widget _colorWrapper(String string, Color color) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.all(5),
+        height: 60,
+        color: color,
+        child: Center(
+          child: Text(string, style: TextStyle(color: Colors.white)),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,23 +25,17 @@ class ColorPage extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         children: [
           Container(
-            height: 60,
-            color: WeeColor.duskMauve,
-            child: const Center(
-              child: Text(
-                "WeeColor.duskMauve",
-              ),
+            child: Text(
+              "Color List :",
+              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),
             ),
           ),
-          const SizedBox(height: 10),
-          Container(
-            height: 60,
-            color: WeeColor.lavenderBlue,
-            child: const Center(
-              child: Text(
-                "WeeColor.lavenderBlue",
-              ),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _colorWrapper("duskMauve", WeeColor.duskMauve),
+              _colorWrapper("lavenderBlue", WeeColor.lavenderBlue),
+            ],
           ),
           const SizedBox(height: 50),
           Theme(

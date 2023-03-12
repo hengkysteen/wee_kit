@@ -24,11 +24,9 @@ class ColorPage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(10),
         children: [
-          Container(
-            child: Text(
-              "Color List :",
-              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),
-            ),
+          Text(
+            "Color List :",
+            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

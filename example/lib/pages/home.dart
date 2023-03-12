@@ -3,6 +3,7 @@ import 'package:example/pages/formater.dart';
 import 'package:flutter/material.dart';
 import 'package:wee_kit/wee_kit.dart';
 
+import 'loading.dart';
 import 'loadmore.dart';
 
 class HomePage extends StatelessWidget {
@@ -27,9 +28,14 @@ class HomePage extends StatelessWidget {
             onTap: () => WeeNavigate.to(context, const LoadMorePage()),
           ),
           ListTile(
-            title: const Text("Formater"),
-            subtitle: const Text("ListView , Loadmore & Refresh"),
+            title: const Text("WeeTextInputFormaterCurrency"),
+            subtitle: const Text("Currency"),
             onTap: () => WeeNavigate.to(context, const FormaterPage()),
+          ),
+          ListTile(
+            title: const Text("Loading"),
+            subtitle: const Text("Overlay"),
+            onTap: () => WeeNavigate.to(context, const LoadingPage()),
           )
         ],
       ),

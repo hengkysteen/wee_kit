@@ -15,7 +15,7 @@ class FormaterPage extends StatelessWidget {
           keyboardType: TextInputType.number,
           inputFormatters: [
             FilteringTextInputFormatter.digitsOnly,
-          WeeTextInputFormaterCurrency(locale, symbol: symbol, decimalDigits: decimalDigits),
+            WeeTextInputFormaterCurrency(locale, symbol: symbol, decimalDigits: decimalDigits),
           ],
         ),
       ),
@@ -25,7 +25,7 @@ class FormaterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("WeeColor")),
+      appBar: AppBar(title: const Text("WeeTextInputFormaterCurrency")),
       body: ListView(
         padding: const EdgeInsets.all(10),
         children: [

@@ -9,12 +9,9 @@ class LoadMorePage extends StatefulWidget {
 }
 
 class _LoadMorePageState extends State<LoadMorePage> {
-
   
   List data = [];
   bool isDataEnd = false;
-
-
 
   @override
   void initState() {
@@ -34,6 +31,7 @@ class _LoadMorePageState extends State<LoadMorePage> {
       });
     } else {
       await Future.delayed(const Duration(seconds: 1));
+      if (!mounted) return;
       setState(() {
         data.addAll(List.generate(10, (index) => "Data"));
         isDataEnd = false;
@@ -45,22 +43,25 @@ class _LoadMorePageState extends State<LoadMorePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("WeeLoadMoreList")),
-      body: WeeLoadMoreList(
-        primary: true,
-        isLoadMoreEnd: isDataEnd,
-        showRefresh: true,
-        onRefresh: () async => await getData(isRefresh: true),
-        onLoadMore: getData,
-        length: data.length,
-        builder: (c, i) {
-          return Card(
-            child: SizedBox(
-              height: 100,
-              child: Center(child: Text("${data[i]} ${i + 1}")),
+      body: data.isEmpty
+          ? Center(
+              child: Text(
+                "Load ..",
+              ),
+            )
+          : WeeLoadMoreList(
+              primary: true,
+              isLoadMoreEnd: isDataEnd,
+              showRefresh: true,
+              onRefresh: () async => await getData(isRefresh: true),
+              onLoadMore: getData,
+              length: data.length,
+              builder: (c, i) {
+                return Card(
+                  child: SizedBox(height: 100, child: Center(child: Text("${data[i]} ${i + 1}"))),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }

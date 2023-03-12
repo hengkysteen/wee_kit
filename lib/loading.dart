@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-@Deprecated('use WeeLoading')
-class WeeOverlays {
-  static void show<T>(
+class WeeLoading {
+  static void showOverlay<T>(
     BuildContext context, {
     bool disablePop = true,
     Color? barrierColor = Colors.black54,
@@ -49,10 +48,5 @@ class WeeOverlays {
         );
       },
     );
-  }
-
-  @Deprecated('Use WeeNavigate.back')
-  static void hide(BuildContext context) {
-    return Navigator.pop(context);
   }
 }

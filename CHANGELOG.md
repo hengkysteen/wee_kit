@@ -9,3 +9,6 @@
 ## [2.0.2] 
 * MIT License
 * Example
+## [2.0.3] 
+* add currency input format
+* add loading

@@ -6,18 +6,9 @@ A kit, simple & reusable UI components to save development time.
 ## Getting Started
 add to dependencies:
 ```yaml
-wee_kit: ^2.0.2
+wee_kit: ^2.0.3
 ```
 ### TODO :
   - Documentation
   - Example
   - Test
- 
-For flutter 1 project\
-add to dependencies:
-```yaml
-  wee_kit:
-    git:
-      url: https://github.com/hengkysteen/wee_kit.git
-      ref: v1.0.0
-```

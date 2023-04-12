@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wee_kit/wee_kit.dart' show WeeColor;
 
 class ColorPage extends StatelessWidget {
+  
   const ColorPage({Key? key}) : super(key: key);
 
   Widget _colorWrapper(String string, Color color) {
@@ -26,7 +27,7 @@ class ColorPage extends StatelessWidget {
         children: [
           Text(
             "Color List :",
-            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

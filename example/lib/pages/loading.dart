@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wee_kit/loading.dart';
 import 'package:wee_kit/wee_kit.dart';
 
 class LoadingPage extends StatelessWidget {
@@ -11,31 +12,24 @@ class LoadingPage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(10),
         children: [
-          TextButton(
-            onPressed: () async {
-              WeeOverlays.show(context);
+          ListTile(
+            onTap: () async {
+              WeeLoading.showOverlay(context);
               await Future.delayed(Duration(seconds: 3));
-              WeeOverlays.hide(context);
+              WeeNavigate.back(context);
             },
-            child: Text('Default'),
+            title: Text('showOverlay'),
+            subtitle: Text("disablePop: true"),
           ),
-          TextButton(
-            onPressed: () async {
-              WeeOverlays.show(
-                context,
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 100,
-                  width: 100,
-                  color: Colors.grey[200],
-                  child: Text("Wait ..."),
-                ),
-              );
+          ListTile(
+            onTap: () async {
+              WeeLoading.showOverlay(context, disablePop: false);
               await Future.delayed(Duration(seconds: 3));
-              WeeOverlays.hide(context);
+              WeeNavigate.back(context);
             },
-            child: Text('WeeOverlays'),
-          )
+            title: Text('showOverlay'),
+            subtitle: Text("disablePop: false"),
+          ),
         ],
       ),
     );

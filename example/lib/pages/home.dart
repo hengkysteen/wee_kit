@@ -3,6 +3,7 @@ import 'package:example/pages/formater.dart';
 import 'package:flutter/material.dart';
 import 'package:wee_kit/wee_kit.dart';
 
+import 'datetime.dart';
 import 'loading.dart';
 import 'loadmore.dart';
 
@@ -33,9 +34,14 @@ class HomePage extends StatelessWidget {
             onTap: () => WeeNavigate.to(context, const FormaterPage()),
           ),
           ListTile(
-            title: const Text("Loading"),
+            title: const Text("WeeLoading"),
             subtitle: const Text("Overlay"),
             onTap: () => WeeNavigate.to(context, const LoadingPage()),
+          ),
+          ListTile(
+            title: const Text("WeeDateTime"),
+            subtitle: const Text("Overlay"),
+            onTap: () => WeeNavigate.to(context, const WeeDateTimeExamplePage()),
           )
         ],
       ),

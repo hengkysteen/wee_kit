@@ -5,8 +5,9 @@ class WeeLoading {
     BuildContext context, {
     bool disablePop = true,
     Color? barrierColor = Colors.black54,
-    Widget? child,
+    Widget? customChild,
     Color? loadingColor,
+    String loadingText = "Loading ",
   }) async {
     return showDialog(
       barrierColor: barrierColor,
@@ -20,14 +21,14 @@ class WeeLoading {
             child: Material(
               color: Colors.transparent,
               child: Center(
-                child: child ??
+                child: customChild ??
                     AlertDialog(
                       content: Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Loading ",
+                           loadingText,
                             style: TextStyle(fontWeight: FontWeight.w500),
                           ),
                           SizedBox(width: 10),

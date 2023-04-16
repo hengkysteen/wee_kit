@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 
 class WeeLoading {
-  static void showOverlay<T>(
-    BuildContext context, {
-    bool disablePop = true,
-    Color? barrierColor = Colors.black54,
-    Widget? customChild,
-    Color? loadingColor,
-    String loadingText = "Loading ",
-  }) async {
+  static void showOverlay<T>(BuildContext context, {bool disablePop = true, Color? barrierColor = Colors.black54, Widget? customChild, Color? loadingColor, String loadingText = "Loading "}) async {
     return showDialog(
       barrierColor: barrierColor,
       useRootNavigator: false,
@@ -28,7 +21,7 @@ class WeeLoading {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                           loadingText,
+                            loadingText,
                             style: TextStyle(fontWeight: FontWeight.w500),
                           ),
                           SizedBox(width: 10),

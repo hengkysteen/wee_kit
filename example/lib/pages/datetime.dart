@@ -17,7 +17,7 @@ class _WeeDateTimeExamplePageState extends State<WeeDateTimeExamplePage> {
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [key, val],
+        children: [key, val]
       ),
     );
   }

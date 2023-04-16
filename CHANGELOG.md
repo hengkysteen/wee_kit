@@ -12,3 +12,5 @@
 ## [2.0.3] 
 * add currency input format
 * add loading
+* add string & map extention
+* add debouncer

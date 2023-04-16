@@ -8,7 +8,3 @@ add to dependencies:
 ```yaml
 wee_kit: ^2.0.3
 ```
-### TODO :
-  - Documentation
-  - Example
-  - Test

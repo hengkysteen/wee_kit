@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:wee_kit/extentions/index.dart';
+import 'package:wee_kit/src/extentions/index.dart';
 
 void main() {
   test('groupBy() should group people by older age', () {

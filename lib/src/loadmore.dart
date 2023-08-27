@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class WeeLoadMoreList extends StatefulWidget {
   final int length;
   final IndexedWidgetBuilder builder;
+
   /// [onRefresh] require [showRefresh] to true
   final RefreshCallback? onRefresh;
   final bool showRefresh;
@@ -103,21 +104,12 @@ class _WeeLoadMoreListState extends State<WeeLoadMoreList> {
   }
 
   Widget _widgetListView() {
-    return ListView.builder(
-      padding: EdgeInsets.only(bottom: 70),
-      primary: widget.primary,
-      physics: widget.physics,
-      itemCount: widget.length,
-      itemBuilder: widget.builder,
-    );
+    return ListView.builder(padding: EdgeInsets.only(bottom: 70), primary: widget.primary, physics: widget.physics, itemCount: widget.length, itemBuilder: widget.builder);
   }
 
   Widget _buildBody() {
     if (widget.showRefresh) {
-      return _widgetBody(RefreshIndicator(
-        onRefresh: widget.onRefresh!,
-        child: _widgetListView(),
-      ));
+      return _widgetBody(RefreshIndicator(onRefresh: widget.onRefresh!, child: _widgetListView()));
     }
     return _widgetBody(_widgetListView());
   }

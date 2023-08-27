@@ -1,4 +1,3 @@
-/// [String] Extension
 extension WeeStringExtension on String {
   /// Capitalizes the first letter of a string and converts the rest of the string to lowercase.
   ///

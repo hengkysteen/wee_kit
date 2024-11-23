@@ -104,7 +104,13 @@ class _WeeLoadMoreListState extends State<WeeLoadMoreList> {
   }
 
   Widget _widgetListView() {
-    return ListView.builder(padding: EdgeInsets.only(bottom: 70), primary: widget.primary, physics: widget.physics, itemCount: widget.length, itemBuilder: widget.builder);
+    return ListView.builder(
+      padding: EdgeInsets.only(bottom: 70),
+      primary: widget.primary,
+      physics: widget.physics,
+      itemCount: widget.length,
+      itemBuilder: widget.builder,
+    );
   }
 
   Widget _buildBody() {

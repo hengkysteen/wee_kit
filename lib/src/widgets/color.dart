@@ -1,26 +1,35 @@
-import 'package:flutter/material.dart' show Color, MaterialColor;
+import 'package:flutter/material.dart';
+
+class WeeColors {
+  Color get lavenderBlue => Color(0XFFCCCCFF);
+  Color get duskMauve => Color(0XFF545883);
+}
 
 class WeeColor {
-  Color color;
-  WeeColor(this.color);
+  
+  static Color primary(BuildContext context) {
+    final theme = Theme.of(context);
+    if (theme.useMaterial3) {
+      return theme.colorScheme.primary;
+    } else {
+      if (theme.brightness == Brightness.dark) {
+        return theme.primaryColorDark;
+      } else {
+        return theme.primaryColor;
+      }
+    }
+  }
 
-  static Color get lavenderBlue => Color(0XFFCCCCFF);
-  static Color get duskMauve => Color(0XFF545883);
+  static WeeColors colors = WeeColors();
 
   /// Converts this [Color] to a [MaterialColor] with shades of the same color.
   ///
   /// The returned [MaterialColor] has the same base color as this [Color],
   /// and includes ten shades of the color, ranging from 50% to 100% opacity.
-  ///
-  /// For example, to create a [MaterialColor] from `Colors.blue`, you can use
-  /// `Colors.blue.toMaterialColor()`.
-  ///
-  /// Returns a [MaterialColor] object.
-  MaterialColor toMaterialColor() {
+  static MaterialColor toMaterialColor(Color color) {
     List strengths = <double>[.05];
     final swatch = <int, Color>{};
     final int r = color.red, g = color.green, b = color.blue;
-
     for (int i = 1; i < 10; i++) {
       strengths.add(0.1 * i);
     }

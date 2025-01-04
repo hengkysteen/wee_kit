@@ -10,8 +10,6 @@ export 'src/utils/datetime.dart';
 export 'src/widgets/color.dart';
 export 'src/extentions/index.dart';
 
-export 'src/uis/onboarding/onboarding.dart';
-export 'src/uis/onboarding/item.dart';
 export 'package:intl/intl.dart';
 
 export 'src/widgets/animate/animated.dart';

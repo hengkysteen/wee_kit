@@ -13,3 +13,6 @@ export 'src/extentions/index.dart';
 export 'src/uis/onboarding/onboarding.dart';
 export 'src/uis/onboarding/item.dart';
 export 'package:intl/intl.dart';
+
+export 'src/widgets/animate/animated.dart';
+export 'src/widgets/animate/transitions/index.dart';

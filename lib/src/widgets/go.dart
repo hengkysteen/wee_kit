@@ -43,7 +43,7 @@ class WeeGo {
     PageRouteBuilder pageRouteBuilder = PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => target,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeTransition(opacity: animation, child: child); // Default to FadeTransition
+        return FadeTransition(opacity: animation, child: child);
       },
       transitionDuration: transitionDuration,
       reverseTransitionDuration: reverseTransitionDuration,
@@ -111,13 +111,13 @@ class WeeGo {
       Navigator.pushAndRemoveUntil(
         context,
         pageRouteBuilder,
-        removeUntilPredicate ?? (Route<dynamic> route) => false, // Default behavior if no predicate provided
+        removeUntilPredicate ?? (Route<dynamic> route) => false,
       );
     } else {
       if (replace) {
-        Navigator.pushReplacement(context, pageRouteBuilder); // Use pushReplacement if replace is true
+        Navigator.pushReplacement(context, pageRouteBuilder);
       } else {
-        Navigator.push(context, pageRouteBuilder); // Use push if replace is false
+        Navigator.push(context, pageRouteBuilder);
       }
     }
   }
@@ -134,13 +134,13 @@ class WeeGo {
       Navigator.pushNamedAndRemoveUntil(
         context,
         routeName,
-        removeUntilPredicate ?? (Route<dynamic> route) => false, // Default behavior if no predicate provided
+        removeUntilPredicate ?? (Route<dynamic> route) => false,
       );
     } else {
       if (replace) {
-        Navigator.pushReplacementNamed(context, routeName); // Use pushReplacementNamed if replace is true
+        Navigator.pushReplacementNamed(context, routeName);
       } else {
-        Navigator.pushNamed(context, routeName); // Use pushNamed if replace is false
+        Navigator.pushNamed(context, routeName);
       }
     }
   }

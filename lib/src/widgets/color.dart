@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 
-class WeeColors {
-  Color get lavenderBlue => Color(0XFFCCCCFF);
-  Color get duskMauve => Color(0XFF545883);
-}
-
 class WeeColor {
-  
   static Color primary(BuildContext context) {
     final theme = Theme.of(context);
     if (theme.useMaterial3) {
@@ -20,12 +14,6 @@ class WeeColor {
     }
   }
 
-  static WeeColors colors = WeeColors();
-
-  /// Converts this [Color] to a [MaterialColor] with shades of the same color.
-  ///
-  /// The returned [MaterialColor] has the same base color as this [Color],
-  /// and includes ten shades of the color, ranging from 50% to 100% opacity.
   static MaterialColor toMaterialColor(Color color) {
     List strengths = <double>[.05];
     final swatch = <int, Color>{};
@@ -45,20 +33,6 @@ class WeeColor {
     return MaterialColor(color.value, swatch);
   }
 
-  /// Returns a shade color of the given [color] with the specified [shade].
-  ///
-  /// The [shade] argument is a number between 0 and 100 that determines the
-  /// percentage of shade to apply to the color. A value of 0 indicates no
-  /// shade, while a value of 100 indicates complete shade (i.e., black).
-  /// Values in between produce varying shades of the original color.
-  ///
-  /// For example, to get a color that is 30% lighter than `Colors.red`, you can
-  /// use `getShadeColor(Colors.red, 30)`, which returns a color that is similar
-  /// to `Colors.red.shade300`, but slightly lighter.
-  ///
-  /// Throws an [AssertionError] if the [shade] argument is not within the valid
-  /// range of 0 to 100.
-  ///
   static Color shadeColor(Color color, int shade) {
     assert(shade >= 0 && shade <= 100, 'The shade argument must be a number between 0 and 100.');
     final percent = shade / 100;

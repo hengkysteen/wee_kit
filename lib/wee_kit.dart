@@ -9,8 +9,6 @@ export 'src/utils/debouncer.dart';
 export 'src/utils/datetime.dart';
 export 'src/widgets/color.dart';
 export 'src/extentions/index.dart';
-
 export 'package:intl/intl.dart';
-
 export 'src/widgets/animate/animated.dart';
 export 'src/widgets/animate/transitions/index.dart';

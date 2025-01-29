@@ -4,7 +4,9 @@ import 'transitions/transition.dart';
 class WeeAnimated extends StatefulWidget {
   final Widget child;
   final WeeTransition transition;
-  const WeeAnimated({required this.child, required this.transition});
+  final Key? key;
+  const WeeAnimated({required this.child, required this.transition, this.key});
+
   @override
   State<WeeAnimated> createState() => _WeeAnimatedState();
 }
@@ -24,6 +26,7 @@ class _WeeAnimatedState extends State<WeeAnimated> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
+      key: widget.key,
       animation: _animation,
       builder: (context, child) {
         return widget.transition.transformWidget(widget.child, _animation.value);

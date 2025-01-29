@@ -1,6 +1,6 @@
 name: wee_kit
 description: a kit, simple & reusable UI components to save development time.
-version: 2.0.3
+version: 2.0.4
 repository: https://github.com/hengkysteen/wee_kit
 
 environment:

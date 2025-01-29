@@ -5,7 +5,6 @@ class WeeLoadMoreList extends StatefulWidget {
   final int length;
   final IndexedWidgetBuilder builder;
 
-  /// [onRefresh] require [showRefresh] to true
   final RefreshCallback? onRefresh;
   final bool showRefresh;
   final bool? primary;
@@ -17,7 +16,6 @@ class WeeLoadMoreList extends StatefulWidget {
   final Widget? loadMoreEndWidget;
   final bool isLoadMoreEnd;
 
-  /// A ListView widget with Loadmore & refresh feature
   const WeeLoadMoreList({
     Key? key,
     required this.length,
@@ -51,16 +49,13 @@ class _WeeLoadMoreListState extends State<WeeLoadMoreList> {
   bool Function(ScrollNotification)? get _onNotification {
     return (scrollNotification) {
       if (scrollNotification is ScrollStartNotification) {
-        // ScrollStartNotification
       } else if (scrollNotification is ScrollUpdateNotification) {
-        //ScrollUpdateNotification
         if (scrollNotification.metrics.pixels >= scrollNotification.metrics.maxScrollExtent) {
           setState(() => _isBottom = true);
         } else {
           setState(() => _isBottom = false);
         }
       } else if (scrollNotification is ScrollEndNotification) {
-        //ScrollEndNotification
         if (scrollNotification.metrics.pixels >= scrollNotification.metrics.maxScrollExtent) {
           if (!_isLoadMore && _isBottom) {
             _loadMore();

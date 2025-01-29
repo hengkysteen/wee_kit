@@ -1,4 +1,15 @@
 extension WeeStringExtension on String {
+  String truncate(int maxLength) {
+    if (maxLength == 0) {
+      return this;
+    }
+    if (length <= maxLength) {
+      return this;
+    }
+    String truncated = '${substring(0, maxLength - 3)} ...';
+    return truncated;
+  }
+
   /// Capitalizes the first letter of a string and converts the rest of the string to lowercase.
   ///
   /// This extension method takes a string and capitalizes the first letter of the string

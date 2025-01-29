@@ -14,3 +14,8 @@
 * add loading
 * add string & map extention
 * add debouncer
+## [2.0.4] 
+* remove WeeColors
+* add WeeAnimated & WeeTransition
+* add WeeGo * WeeDotLoading
+ 

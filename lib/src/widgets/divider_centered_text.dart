@@ -5,6 +5,7 @@ class WeeDivider extends StatelessWidget {
   final double indent;
   final double endIndent;
   final Color color;
+
   const WeeDivider({
     Key? key,
     this.child,
@@ -12,6 +13,7 @@ class WeeDivider extends StatelessWidget {
     this.endIndent = 20,
     this.color = Colors.grey,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(

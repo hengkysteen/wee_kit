@@ -1,34 +1,25 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
-/// A utility class for managing and displaying various UI components in Flutter.
-///
-/// The `WeeShow` class is designed to centralize and simplify the process of
-/// displaying contextual menus, dialogs, and other UI elements that require
-/// dynamic positioning or user interaction.
 class WeeShow {
+  ///  [position] use `GestureDetector` to get details
+  ///
+  /// Example :  details.globalPosition
   static Future<int?> contextualMenu({
     required BuildContext context,
-    required LongPressStartDetails longPressStartDetails,
+    required Offset position,
     required List<PopupMenuItem<int>> items,
     Color? color,
     BoxConstraints? constraints,
   }) async {
-    // Get the overlay's render box for calculating the menu's position.
     final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
 
-    // Determine the position of the popup menu relative to the long-press location.
-    final position = RelativeRect.fromLTRB(
-      longPressStartDetails.globalPosition.dx,
-      longPressStartDetails.globalPosition.dy,
-      overlay.size.width - longPressStartDetails.globalPosition.dx,
-      overlay.size.height - longPressStartDetails.globalPosition.dy,
-    );
-
-    // Show the popup menu and return the selected item's value.
+    final positionRect = RelativeRect.fromLTRB(position.dx, position.dy, overlay.size.width - position.dx, overlay.size.height - position.dy);
     return await showMenu(
       color: color,
       context: context,
-      position: position,
+      position: positionRect,
       constraints: constraints ?? BoxConstraints(maxWidth: 150, minWidth: 150),
       items: items,
       menuPadding: EdgeInsets.zero,
@@ -38,6 +29,45 @@ class WeeShow {
   static void snackBar(BuildContext context, String msg, {int seconds = 1}) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg), duration: Duration(seconds: seconds)));
+  }
+
+  static void bluredDialog({
+    required BuildContext context,
+    required Widget child,
+    double verticalSpace = 60,
+    EdgeInsetsGeometry? margin,
+    double maxWidth = 800
+  }) {
+    showDialog(
+      barrierDismissible: true,
+      barrierColor: Colors.transparent,
+      context: context,
+      builder: (context) {
+        return Stack(
+          children: [
+            BackdropFilter(filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3, tileMode: TileMode.decal), child: const Center()),
+            Center(
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: verticalSpace),
+                width: maxWidth,
+                constraints: BoxConstraints(maxWidth: maxWidth),
+                child: Card(
+                  margin: margin,
+                  elevation: 3,
+                  clipBehavior: Clip.antiAlias,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(width: 0.7, color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.4)),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  borderOnForeground: true,
+                  child: child,
+                ),
+              ),
+            )
+          ],
+        );
+      },
+    );
   }
 
   static void loadingOverlay<T>(
@@ -55,36 +85,34 @@ class WeeShow {
       context: context,
       barrierDismissible: false,
       builder: (context) {
-        return Builder(builder: (context) {
-          return PopScope(
-            canPop: canPop,
-            child: Material(
-              color: Colors.transparent,
-              child: child ??
-                  Center(
-                    child: customChild ??
-                        AlertDialog(
-                          content: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(loadingText, style: TextStyle(fontWeight: FontWeight.w500)),
-                              SizedBox(width: 10),
-                              SizedBox(
-                                height: 30,
-                                width: 30,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 3,
-                                  valueColor: AlwaysStoppedAnimation<Color>(loadingColor ?? Colors.black87),
-                                ),
+        return PopScope(
+          canPop: canPop,
+          child: Material(
+            color: Colors.transparent,
+            child: child ??
+                Center(
+                  child: customChild ??
+                      AlertDialog(
+                        content: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(loadingText, style: TextStyle(fontWeight: FontWeight.w500)),
+                            SizedBox(width: 10),
+                            SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 3,
+                                valueColor: AlwaysStoppedAnimation<Color>(loadingColor ?? Colors.black87),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                  ),
-            ),
-          );
-        });
+                      ),
+                ),
+          ),
+        );
       },
     );
   }

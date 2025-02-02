@@ -28,4 +28,28 @@ class WeeDateTime {
       return 'just now';
     }
   }
+
+  static String timeLeft(String? dateStr) {
+    if (dateStr == null) return "";
+
+    final now = DateTime.now();
+
+    DateTime futureDate = DateTime.parse(dateStr);
+    Duration difference = futureDate.difference(now);
+
+    if (difference.isNegative) return "0";
+
+    int min = difference.inMinutes;
+    int sec = difference.inSeconds % 60;
+
+    String formattedDuration;
+
+    if (min > 0) {
+      formattedDuration = '${min}m:${sec.toString().padLeft(2, '0')}s left';
+    } else {
+      formattedDuration = '${sec}s left';
+    }
+
+    return formattedDuration;
+  }
 }

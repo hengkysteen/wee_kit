@@ -31,13 +31,7 @@ class WeeShow {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg), duration: Duration(seconds: seconds)));
   }
 
-  static void bluredDialog({
-    required BuildContext context,
-    required Widget child,
-    double verticalSpace = 60,
-    EdgeInsetsGeometry? margin,
-    double maxWidth = 800
-  }) {
+  static void bluredDialog({required BuildContext context, required Widget child, double verticalSpace = 60, double horizontalSpace = 20, double maxWidth = 800}) {
     showDialog(
       barrierDismissible: true,
       barrierColor: Colors.transparent,
@@ -48,11 +42,10 @@ class WeeShow {
             BackdropFilter(filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3, tileMode: TileMode.decal), child: const Center()),
             Center(
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: verticalSpace),
+                margin: EdgeInsets.symmetric(vertical: verticalSpace, horizontal: horizontalSpace),
                 width: maxWidth,
                 constraints: BoxConstraints(maxWidth: maxWidth),
                 child: Card(
-                  margin: margin,
                   elevation: 3,
                   clipBehavior: Clip.antiAlias,
                   shape: RoundedRectangleBorder(
